@@ -1,0 +1,14 @@
+### GET Request
+GET http://localhost:3000/product?page=1&itemsPerPage=5&search=cadeira
+
+###
+
+### POST Request with JSON Body
+POST http://localhost:3000/product
+Content-Type: application/json
+
+{
+    "name": "Mesa",
+    "price": 200.00,
+    "description": "Uma mesa, como outra qualquer"
+}
