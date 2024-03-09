@@ -13,6 +13,7 @@ func (service service) Create(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(500)
 		w.Write([]byte(err.Error()))
+		return
 	}
 
 	product, err := service.usecase.Create(productRequest)

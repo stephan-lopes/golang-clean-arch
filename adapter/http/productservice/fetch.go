@@ -8,12 +8,7 @@ import (
 )
 
 func (service service) Fetch(w http.ResponseWriter, r *http.Request) {
-	paginationRequest, err := dto.FromValuePaginationRequestParams(r)
-	if err != nil {
-		w.WriteHeader(500)
-		w.Write([]byte(err.Error()))
-		return
-	}
+	paginationRequest, _ := dto.FromValuePaginationRequestParams(r)
 
 	products, err := service.usecase.Fetch(paginationRequest)
 	if err != nil {
