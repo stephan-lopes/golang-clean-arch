@@ -1,5 +1,5 @@
 ### GET Request
-GET http://localhost:3000/product?page=1&itemsPerPage=5&search=cadeira
+GET http://localhost:3000/product?page=1&itemsPerPage=5&search=Mesa&sort=&descending=
 
 ###
 

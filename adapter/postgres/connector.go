@@ -7,6 +7,8 @@ import (
 	"os"
 
 	"github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/database/pgx"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/jackc/pgconn"
 	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/pgxpool"
@@ -29,7 +31,7 @@ type PoolInterface interface {
 func GetConnection(context context.Context) *pgxpool.Pool {
 	databaseURL := viper.GetString("database.url")
 
-	conn, err := pgxpool.Connect(context, "postgres"+databaseURL)
+	conn, err := pgxpool.Connect(context, "postgresql"+databaseURL)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
 		os.Exit(1)

@@ -12,13 +12,13 @@ func (repository repository) Fetch(paginationRequest *dto.PaginationRequestParam
 	ctx := context.Background()
 	products := []domain.Product{}
 	total := int32(0)
-	pager := paginate.Instance("")
+	pager := paginate.Instance(paginationRequest)
 
 	query, queryCount := pager.
 		Query("SELECT * FROM product").
-		Page(paginationRequest.Page).
-		Desc(paginationRequest.Descending).
 		Sort(paginationRequest.Sort).
+		Desc(paginationRequest.Descending).
+		Page(paginationRequest.Page).
 		RowsPerPage(paginationRequest.ItemsPerPage).
 		SearchBy(paginationRequest.Search, "name", "description").
 		Select()

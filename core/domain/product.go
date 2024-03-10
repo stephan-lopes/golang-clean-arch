@@ -7,10 +7,10 @@ import (
 )
 
 type Product struct {
-	ID          int32   `json:"id"`
-	Name        string  `json:"name"`
-	Price       float32 `json:"price"`
-	Description string  `json:"description"`
+	ID          int32   `json:"id" example:"1"`
+	Name        string  `json:"name" example:"Mesa"`
+	Price       float32 `json:"price" example:"200.00"`
+	Description string  `json:"description" example:"Uma mesa, como outra qualquer"`
 }
 
 type ProductService interface {
