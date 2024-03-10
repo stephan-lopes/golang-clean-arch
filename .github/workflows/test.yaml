@@ -1,0 +1,39 @@
+name: "Workflow para rodar os Testes"
+on: 
+  - push
+  - pull_request
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        go-version: [1.21.x]
+        os: [ubuntu-latest]
+
+    runs-on: "${{ matrix.os }}"
+    steps:
+      - name: Install Golang
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go-version }}
+      
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      
+      - name: Download Swaggo
+        run: go install github.com/swaggo/swag/cmd/swag@latest
+
+      - name: Install Swaggo
+        run: swag init -d adapter/http --parseDependency --parseInternal --parseDepth 2 -o adapter/http/docs
+
+      - name: Unit Test
+        run: go mod tidy && go test ./... -coverprofile=coverage.txt -covermode=atomic
+
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v4.0.1
+        with: 
+          name: codecov-umbrella
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: stephan-lopes/golang-clean-arch
+          file: ./coverage.txt
+          flags: unittests
